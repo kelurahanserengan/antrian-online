@@ -22,20 +22,19 @@
       margin: 0; 
       padding: 0;
       width: 100%;
-      height: 100%;
-      overflow: hidden; /* Mengunci scroll utama jika halaman ini dijadikan Iframe di GitHub Pages */
+      min-height: 100vh;
     }
 
     body { 
       background: var(--bg-gradient); 
-      min-height: 100vh; 
       font-family: 'Plus Jakarta Sans', sans-serif; 
       color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow-y: auto; /* Izinkan scroll internal jika layar gadget pendek */
+      overflow-x: hidden;
+      overflow-y: auto; /* Memastikan mobile user bisa scroll halaman utama dengan mulus */
     }
 
     /* Efek Blur Latar Belakang */
@@ -51,23 +50,23 @@
     }
 
     .header-section {
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
 
     /* KARTU LINK MODERN (GLASSMORPHISM) */
     .portal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
     .glass-portal-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
+      border-radius: 20px;
       border: 1px solid var(--glass-border);
-      padding: 35px 25px;
+      padding: 30px 20px;
       text-align: center;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
@@ -78,43 +77,54 @@
       overflow: hidden;
     }
 
-    .glass-portal-card:hover {
-      transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-      border-color: rgba(255, 255, 255, 0.4);
+    /* Efek hover dinonaktifkan di mobile / touch device agar tidak kaku */
+    @media (min-width: 992px) {
+      .glass-portal-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+      .glass-portal-card:hover .icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+      }
+      .btn-portal:hover i {
+        transform: translateX(4px);
+      }
+      .btn-portal:hover {
+        background: var(--accent-color);
+        color: #1e3c72;
+        box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
+        transform: scale(1.02);
+      }
     }
 
     /* Gaya Ikon Besar */
     .icon-wrapper {
-      width: 75px;
-      height: 75px;
+      width: 65px;
+      height: 65px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 2.2rem;
+      margin: 0 auto 15px;
+      font-size: 2rem;
       color: var(--accent-color);
       transition: transform 0.3s ease;
     }
 
-    .glass-portal-card:hover .icon-wrapper {
-      transform: scale(1.1) rotate(5deg);
-    }
-
     .card-title {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       letter-spacing: -0.5px;
     }
 
     .card-desc {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       opacity: 0.75;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       line-height: 1.5;
     }
 
@@ -124,7 +134,7 @@
       color: #1e3c72;
       font-size: 0.85rem;
       font-weight: 700;
-      padding: 12px 24px;
+      padding: 12px 20px;
       border-radius: 50px;
       border: none;
       text-transform: uppercase;
@@ -140,23 +150,43 @@
       cursor: pointer;
     }
 
-    .btn-portal:hover {
-      background: var(--accent-color);
-      color: #1e3c72;
-      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
-      transform: scale(1.02);
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 767.98px) {
+      .portal-container {
+        padding: 25px 15px;
+      }
+      .header-section {
+        margin-bottom: 25px;
+      }
+      .header-section h1 {
+        font-size: 1.85rem !important;
+      }
+      .header-section p {
+        font-size: 0.95rem !important;
+      }
+      .portal-grid {
+        grid-template-columns: 1fr; /* Satu kolom penuh di layar HP */
+        gap: 15px;
+      }
+      .glass-portal-card {
+        padding: 25px 15px;
+      }
+      .modal-header {
+        padding: 12px !important;
+      }
+      .modal-header h5 {
+        font-size: 1rem !important;
+      }
+      .modal-header small {
+        font-size: 0.75rem !important;
+      }
+      .btn-back-portal {
+        padding: 6px 12px !important;
+        font-size: 0.75rem !important;
+      }
     }
 
-    .btn-portal i {
-      font-size: 1.1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .btn-portal:hover i {
-      transform: translateX(4px);
-    }
-
-    /* TRIK CSS: Sembunyikan sisa elemen banner bawaan Google */
+    /* Sembunyikan elemen sisa Google Apps Script */
     .apps-share-space-carosel, 
     div[class*="apps-share-space"], 
     .goog-inline-block, 
@@ -174,10 +204,11 @@
       margin-bottom: -40px;
     }
 
-    /* Kustomisasi gaya SweetAlert agar menyatu dengan tema */
     .swal2-popup {
       border-radius: 20px !important;
       font-family: 'Plus Jakarta Sans', sans-serif !important;
+      width: 90% !important; /* SweetAlert menyesuaikan lebar layar HP */
+      max-width: 450px !important;
     }
   </style>
 </head>
@@ -188,15 +219,16 @@
     <div class="mb-3">
       <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" 
            alt="Logo Pemkot Surakarta" 
-           style="height: 85px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+           style="height: 75px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
     </div>
-    <h1 class="display-5 mb-2 fw-800" style="font-weight: 800;">Portal Layanan Serena</h1>
-    <p class="lead opacity-75">Sistem Manajemen Antrian Digital Kelurahan Serengan</p>
-    <div style="width: 60px; height: 4px; background: var(--accent-color); margin: 20px auto; border-radius: 2px;"></div>
+    <h1 class="display-6 mb-2 fw-800" style="font-weight: 800; letter-spacing: -1px;">Portal Layanan Serena</h1>
+    <p class="lead opacity-75 fs-6">Sistem Manajemen Antrian Digital Kelurahan Serengan</p>
+    <div style="width: 50px; height: 4px; background: var(--accent-color); margin: 15px auto; border-radius: 2px;"></div>
   </div>
   
   <div class="portal-grid">
     
+    <!-- MENU 1: MESIN AMBIL ANTRIAN -->
     <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.1s">
       <div class="glass-portal-card">
         <div>
@@ -212,6 +244,7 @@
       </div>
     </div>
 
+    <!-- MENU 2: MONITOR LAYAR TV -->
     <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
       <div class="glass-portal-card">
         <div>
@@ -227,6 +260,7 @@
       </div>
     </div>
 
+    <!-- MENU 3: SERENA LAYANAN PUBLIK -->
     <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
       <div class="glass-portal-card">
         <div>
@@ -242,6 +276,7 @@
       </div>
     </div>
 
+    <!-- MENU 4: DASHBOARD ADMIN -->
     <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
       <div class="glass-portal-card">
         <div>
@@ -260,25 +295,30 @@
   </div>
 </div>
 
+<!-- ================================================================================== -->
+<!-- MODAL DEFENISI REUSABLE (DENGAN HEADER RESPONSIF MULTI-DEVICE) -->
+<!-- ================================================================================== -->
+
+<!-- MODAL 1 -->
 <div class="modal fade" id="layananModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="layananModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content" style="background: var(--bg-gradient); border: none;">
-      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-        <div class="d-flex align-items-center w-100 justify-content-between px-2">
-          <div class="d-flex align-items-center gap-3">
-            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+      <div class="modal-header border-0" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between flex-wrap gap-2">
+          <div class="d-flex align-items-center gap-2 gap-sm-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 38px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
             <div>
-              <h5 class="modal-title fw-bold text-white mb-0" id="layananModalLabel" style="font-size: 1.2rem;">Mesin Ambil Antrian Digital</h5>
+              <h5 class="modal-title fw-bold text-white mb-0" id="layananModalLabel" style="font-size: 1.1rem; line-height: 1.2;">Mesin Ambil Antrian Digital</h5>
               <small class="text-white-50">Kelurahan Serengan</small>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
-            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          <button type="button" class="btn btn-outline-light rounded-pill btn-back-portal d-flex align-items-center gap-1 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.8rem; padding: 8px 16px;">
+            <i class="bi bi-arrow-left-circle"></i> <span>Kembali</span>
           </button>
         </div>
       </div>
       <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
-        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 67px); overflow: hidden;">
           <iframe src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec"></iframe>
         </div>
       </div>
@@ -286,25 +326,26 @@
   </div>
 </div>
 
+<!-- MODAL 2 -->
 <div class="modal fade" id="tvModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tvModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content" style="background: var(--bg-gradient); border: none;">
-      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-        <div class="d-flex align-items-center w-100 justify-content-between px-2">
-          <div class="d-flex align-items-center gap-3">
-            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+      <div class="modal-header border-0" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between flex-wrap gap-2">
+          <div class="d-flex align-items-center gap-2 gap-sm-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 38px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
             <div>
-              <h5 class="modal-title fw-bold text-white mb-0" id="tvModalLabel" style="font-size: 1.2rem;">Monitor Layar TV Utama</h5>
+              <h5 class="modal-title fw-bold text-white mb-0" id="tvModalLabel" style="font-size: 1.1rem; line-height: 1.2;">Monitor Layar TV Utama</h5>
               <small class="text-white-50">Kelurahan Serengan</small>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
-            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          <button type="button" class="btn btn-outline-light rounded-pill btn-back-portal d-flex align-items-center gap-1 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.8rem; padding: 8px 16px;">
+            <i class="bi bi-arrow-left-circle"></i> <span>Kembali</span>
           </button>
         </div>
       </div>
       <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
-        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 67px); overflow: hidden;">
           <iframe src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec?page=TV"></iframe>
         </div>
       </div>
@@ -312,25 +353,26 @@
   </div>
 </div>
 
+<!-- MODAL 3 -->
 <div class="modal fade" id="publikModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="publikModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content" style="background: var(--bg-gradient); border: none;">
-      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-        <div class="d-flex align-items-center w-100 justify-content-between px-2">
-          <div class="d-flex align-items-center gap-3">
-            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+      <div class="modal-header border-0" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between flex-wrap gap-2">
+          <div class="d-flex align-items-center gap-2 gap-sm-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 38px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
             <div>
-              <h5 class="modal-title fw-bold text-white mb-0" id="publikModalLabel" style="font-size: 1.2rem;">Serena Layanan Publik</h5>
+              <h5 class="modal-title fw-bold text-white mb-0" id="publikModalLabel" style="font-size: 1.1rem; line-height: 1.2;">Serena Layanan Publik</h5>
               <small class="text-white-50">Kelurahan Serengan</small>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
-            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          <button type="button" class="btn btn-outline-light rounded-pill btn-back-portal d-flex align-items-center gap-1 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.8rem; padding: 8px 16px;">
+            <i class="bi bi-arrow-left-circle"></i> <span>Kembali</span>
           </button>
         </div>
       </div>
       <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
-        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 67px); overflow: hidden;">
           <iframe src="https://kelurahanserengan.github.io/layanan-publik/" style="height: 100%; margin-bottom: 0;"></iframe>
         </div>
       </div>
@@ -338,25 +380,26 @@
   </div>
 </div>
 
+<!-- MODAL 4 -->
 <div class="modal fade" id="adminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content" style="background: var(--bg-gradient); border: none;">
-      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-        <div class="d-flex align-items-center w-100 justify-content-between px-2">
-          <div class="d-flex align-items-center gap-3">
-            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+      <div class="modal-header border-0" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between flex-wrap gap-2">
+          <div class="d-flex align-items-center gap-2 gap-sm-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 38px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
             <div>
-              <h5 class="modal-title fw-bold text-white mb-0" id="adminModalLabel" style="font-size: 1.2rem;">Dashboard Admin & Operator</h5>
+              <h5 class="modal-title fw-bold text-white mb-0" id="adminModalLabel" style="font-size: 1.1rem; line-height: 1.2;">Dashboard Admin & Operator</h5>
               <small class="text-white-50">Kelurahan Serengan</small>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
-            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          <button type="button" class="btn btn-outline-light rounded-pill btn-back-portal d-flex align-items-center gap-1 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.8rem; padding: 8px 16px;">
+            <i class="bi bi-arrow-left-circle"></i> <span>Kembali</span>
           </button>
         </div>
       </div>
       <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
-        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 67px); overflow: hidden;">
           <iframe src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec?page=admin"></iframe>
         </div>
       </div>
@@ -393,7 +436,6 @@
     }).then((result) => {
       if (result.isConfirmed) {
         if (result.value === passwordBenar) {
-          // Berhasil: Tampilkan notifikasi sukses sekilas lalu buka modal
           Swal.fire({
             icon: 'success',
             title: 'Akses Diterima',
@@ -405,7 +447,6 @@
             myModal.show();
           });
         } else {
-          // Gagal: Tampilkan pesan salah
           Swal.fire({
             icon: 'error',
             title: 'Akses Ditolak',
