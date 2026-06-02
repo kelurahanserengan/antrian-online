@@ -44,7 +44,7 @@
     }
 
     .portal-container {
-      max-width: 1100px;
+      max-width: 1200px;
       width: 100%;
       padding: 40px 20px;
     }
@@ -56,8 +56,8 @@
     /* KARTU LINK MODERN (GLASSMORPHISM) */
     .portal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
     }
 
     .glass-portal-card {
@@ -66,7 +66,7 @@
       -webkit-backdrop-filter: blur(20px);
       border-radius: 24px;
       border: 1px solid var(--glass-border);
-      padding: 40px 30px;
+      padding: 35px 25px;
       text-align: center;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
@@ -86,15 +86,15 @@
 
     /* Gaya Ikon Besar */
     .icon-wrapper {
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 25px;
-      font-size: 2.5rem;
+      margin: 0 auto 20px;
+      font-size: 2.2rem;
       color: var(--accent-color);
       transition: transform 0.3s ease;
     }
@@ -104,16 +104,16 @@
     }
 
     .card-title {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 800;
       margin-bottom: 12px;
       letter-spacing: -0.5px;
     }
 
     .card-desc {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       opacity: 0.75;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       line-height: 1.5;
     }
 
@@ -121,9 +121,9 @@
     .btn-portal {
       background: #ffffff;
       color: #1e3c72;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      padding: 12px 28px;
+      padding: 12px 24px;
       border-radius: 50px;
       border: none;
       text-transform: uppercase;
@@ -155,7 +155,7 @@
       transform: translateX(4px);
     }
 
-    /* TRIK CSS: Menyembunyikan paksa jika ada elemen banner bawaan Google */
+    /* TRIK CSS: Sembunyikan sisa elemen banner bawaan Google */
     .apps-share-space-carosel, 
     div[class*="apps-share-space"], 
     .goog-inline-block, 
@@ -164,6 +164,13 @@
       visibility: hidden !important;
       height: 0 !important;
       opacity: 0 !important;
+    }
+    
+    .modal-body iframe {
+      width: 100%;
+      height: calc(100% + 40px);
+      border: none;
+      margin-bottom: -40px;
     }
   </style>
 </head>
@@ -207,13 +214,28 @@
           <div class="card-title">Monitor Layar TV</div>
           <p class="card-desc">Tampilan ruang tunggu untuk menampilkan nomor panggilan aktif, infografis IKM, suara panggilan, dan slideshow.</p>
         </div>
-        <a href="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec?page=TV" target="_blank" class="btn-portal">
+        <button type="button" class="btn-portal" data-bs-toggle="modal" data-bs-target="#tvModal">
           Buka Monitor <i class="bi bi-arrow-right-short"></i>
-        </a>
+        </button>
       </div>
     </div>
 
     <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
+      <div class="glass-portal-card">
+        <div>
+          <div class="icon-wrapper">
+            <i class="bi bi-globe2"></i>
+          </div>
+          <div class="card-title">Serena Layanan Publik</div>
+          <p class="card-desc">Portal resmi integrasi informasi publik, permohonan surat administrasi warga, dan arsip digital Kelurahan Serengan.</p>
+        </div>
+        <button type="button" class="btn-portal" data-bs-toggle="modal" data-bs-target="#publikModal">
+          Buka Portal <i class="bi bi-arrow-right-short"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
       <div class="glass-portal-card">
         <div>
           <div class="icon-wrapper">
@@ -222,9 +244,9 @@
           <div class="card-title">Dashboard Admin</div>
           <p class="card-desc">Panel khusus pamong kelurahan untuk memanggil nomor, mengatur loket, mengelola data, dan mengubah status antrian.</p>
         </div>
-        <a href="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec?page=admin" target="_blank" class="btn-portal">
+        <button type="button" class="btn-portal" onclick="aksesAdmin()">
           Masuk Admin <i class="bi bi-arrow-right-short"></i>
-        </a>
+        </button>
       </div>
     </div>
 
@@ -234,7 +256,6 @@
 <div class="modal fade" id="layananModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="layananModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content" style="background: var(--bg-gradient); border: none;">
-      
       <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
         <div class="d-flex align-items-center w-100 justify-content-between px-2">
           <div class="d-flex align-items-center gap-3">
@@ -249,21 +270,114 @@
           </button>
         </div>
       </div>
-
       <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
         <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
-          <iframe 
-            src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec" 
-            style="width: 100%; height: calc(100% + 40px); border: none; margin-bottom: -40px;">
-          </iframe>
+          <iframe src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec"></iframe>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal fade" id="tvModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tvModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content" style="background: var(--bg-gradient); border: none;">
+      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between px-2">
+          <div class="d-flex align-items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+            <div>
+              <h5 class="modal-title fw-bold text-white mb-0" id="tvModalLabel" style="font-size: 1.2rem;">Monitor Layar TV Utama</h5>
+              <small class="text-white-50">Kelurahan Serengan</small>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
+            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          </button>
+        </div>
+      </div>
+      <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+          <iframe src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec?page=TV"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="publikModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="publikModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content" style="background: var(--bg-gradient); border: none;">
+      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between px-2">
+          <div class="d-flex align-items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+            <div>
+              <h5 class="modal-title fw-bold text-white mb-0" id="publikModalLabel" style="font-size: 1.2rem;">Serena Layanan Publik</h5>
+              <small class="text-white-50">Kelurahan Serengan</small>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
+            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          </button>
+        </div>
+      </div>
+      <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+          <iframe src="https://kelurahanserengan.github.io/layanan-publik/" style="height: 100%; margin-bottom: 0;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="adminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content" style="background: var(--bg-gradient); border: none;">
+      <div class="modal-header border-0 p-3" style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <div class="d-flex align-items-center w-100 justify-content-between px-2">
+          <div class="d-flex align-items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/d/1_fICvodkC1c4KtjuumkbIHzYcVq3c0MN" alt="Logo Pemkot Surakarta" style="height: 45px; width: auto; clip-path: circle(46% at 50% 49%); object-fit: cover;">
+            <div>
+              <h5 class="modal-title fw-bold text-white mb-0" id="adminModalLabel" style="font-size: 1.2rem;">Dashboard Admin & Operator</h5>
+              <small class="text-white-50">Kelurahan Serengan</small>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-bold" data-bs-dismiss="modal" style="border: 2px solid rgba(255,255,255,0.3); font-size: 0.85rem;">
+            <i class="bi bi-arrow-left-circle"></i> Kembali Ke Portal
+          </button>
+        </div>
+      </div>
+      <div class="modal-body p-0 overflow-hidden" style="background: #ffffff;">
+        <div style="position: relative; width: 100%; height: calc(100vh - 77px); overflow: hidden;">
+          <iframe src="https://script.google.com/macros/s/AKfycbw3s28yVnBHKJzuolANDqkLLx0h7BDIa21ZrzzSXARMxW0BMroQpW5wlhco7UlDeqjk3A/exec?page=admin"></iframe>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Fungsi Logika Validasi Password Admin sebelum memicu Modal Bootstrap
+  function aksesAdmin() {
+    const passwordBenar = "@KelSerengan39";
+    const inputUser = prompt("Masukkan password keamanan berkas admin:");
+    
+    if (inputUser === null) {
+      return; // Batalkan aksi jika pengguna menekan tombol Cancel
+    }
+    
+    if (inputUser === passwordBenar) {
+      // Jika password cocok, panggil modal admin secara programatik
+      var myModal = new bootstrap.Modal(document.getElementById('adminModal'));
+      myModal.show();
+    } else {
+      alert("Password salah! Akses ditolak pimpinan.");
+    }
+  }
+</script>
 
 </body>
 </html>
